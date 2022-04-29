@@ -14,10 +14,12 @@ public class InputController : MonoBehaviour
     private Rigidbody _playerRb;
     private Transform _playerTransform;
     private int _way = 2;
+
+    public GameObject rbObject;
     
     void Start()
     {
-        _playerRb = gameObject.GetComponent<Rigidbody>();
+        _playerRb = rbObject.GetComponent<Rigidbody>();
         _playerTransform = gameObject.GetComponent<Transform>();
     }
     
