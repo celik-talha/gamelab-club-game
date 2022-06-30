@@ -7,6 +7,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject environment;
     [SerializeField] private GameObject _vcam1;
+    [SerializeField] private GameObject _vcam2;
     
     private AnimatorScript _animator;
     private InputController _input;
@@ -32,12 +33,13 @@ public class GameScript : MonoBehaviour
     {
         _environment.isPlaneLive = true;
         Run();
+        _vcam2.SetActive(true);
         _vcam1.SetActive(false);
     }
     public void Run()
     {
         _animator.startRunning();
-        _environment.SetSpeed(2.5f);
+        _environment.SetSpeed(1.5f);//22s
     }
 
     public void Walk()
