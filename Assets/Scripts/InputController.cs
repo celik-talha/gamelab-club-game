@@ -74,7 +74,6 @@ public class InputController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             _gameScript.StartGame();
-            Debug.Log("ss");
         }
         else if(Input.GetButtonDown("Jump"))
         {

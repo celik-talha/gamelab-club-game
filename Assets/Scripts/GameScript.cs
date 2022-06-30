@@ -47,4 +47,30 @@ public class GameScript : MonoBehaviour
         _animator.startWalking();
         _environment.SetSpeed(0.45f);
     }
+
+    public void Idle()
+    {
+        _animator.startIdle();
+        _environment.SetSpeed(0f);
+    }
+
+    public void Hit()
+    {
+        Walk();
+    }
+
+    public void getPhone()
+    {
+        
+    }
+
+    public void preFinish()
+    {
+        Walk();
+    }
+
+    public void Finish()
+    {
+        Idle();
+    }
 }

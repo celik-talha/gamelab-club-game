@@ -9,23 +9,23 @@ public class AnimatorScript : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
     }
-    
-    void Update()
-    {
-        
-    }
-    
+
     public void startRunning()
     {
         _animator.SetBool("isWalking",false);
         _animator.SetBool("isRunning",true);
-        Debug.Log("run");
     }
 
     public void startWalking()
     {
         _animator.SetBool("isRunning",false);
         _animator.SetBool("isWalking",true);
-        Debug.Log("walk");
+    }
+    
+    public void startIdle()
+    {
+        _animator.SetBool("isRunning",false);
+        _animator.SetBool("isWalking",false);
+        _animator.SetBool("isFinished",true);
     }
 }
