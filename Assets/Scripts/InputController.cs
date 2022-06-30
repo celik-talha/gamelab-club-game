@@ -14,11 +14,15 @@ public class InputController : MonoBehaviour
     private Rigidbody _playerRb;
     private Transform _playerTransform;
     private int _way = 2;
-    
+
+    [SerializeField] private GameObject _GameController;
+    private GameScript _gameScript;
+
     void Start()
     {
         _playerRb = gameObject.GetComponent<Rigidbody>();
         _playerTransform = gameObject.GetComponent<Transform>();
+        _gameScript = _GameController.GetComponent<GameScript>();
     }
     
     void Update()
@@ -66,6 +70,16 @@ public class InputController : MonoBehaviour
             }
             
         }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            _gameScript.StartGame();
+            Debug.Log("ss");
+        }
+        else if(Input.GetButtonDown("Jump"))
+        {
+            _gameScript.Walk();
+        }
         
     }
 
@@ -74,11 +88,11 @@ public class InputController : MonoBehaviour
         if (_moveRight)
         {
             Vector3 thisPos = _playerTransform.position;
-            thisPos.x = thisPos.x + 0.2f;
+            thisPos.x = thisPos.x + 0.4f;
             _playerTransform.position = thisPos;
             _slideCount++;
             
-            if (_slideCount > 10)
+            if (_slideCount > 15)
             {
                 _moveRight = false;
                 _slideCount = 0;
@@ -88,11 +102,11 @@ public class InputController : MonoBehaviour
         else if (_moveLeft)
         {
             Vector3 thisPos = _playerTransform.transform.position;
-            thisPos.x = thisPos.x - 0.2f;
+            thisPos.x = thisPos.x - 0.4f;
             _playerTransform.position = thisPos;
             _slideCount++;
             
-            if (_slideCount > 10)
+            if (_slideCount > 15)
             {
                 _moveLeft = false;
                 _slideCount = 0;
