@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Game
+  - Stand
+  - PlayerHit
+  - NPC
   layers:
   - Default
   - TransparentFX

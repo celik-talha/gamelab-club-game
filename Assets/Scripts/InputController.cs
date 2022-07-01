@@ -43,7 +43,6 @@ public class InputController : MonoBehaviour
                 if (firstTouch.position.x > _firstPos.x + 350f && _way != 3)
                 {
                     _onAnimation = true;
-                    Debug.Log("GO RIGHT");
                     _moveRight = true;
                     _firstPos = firstTouch.position;
                     _letMove = false;
@@ -53,7 +52,6 @@ public class InputController : MonoBehaviour
                 else if (firstTouch.position.x < _firstPos.x - 350f && _way != 1)
                 {
                     _onAnimation = true;
-                    Debug.Log("GO Left");
                     _moveLeft = true;
                     _firstPos = firstTouch.position;
                     _letMove = false;
@@ -62,7 +60,6 @@ public class InputController : MonoBehaviour
                 
                 else if (firstTouch.position.y > _firstPos.y + 300f)
                 {
-                    Debug.Log("Jump");
                     _playerRb.AddForce(Vector3.up * 500f);
                     _firstPos = firstTouch.position;
                     _letMove = false;

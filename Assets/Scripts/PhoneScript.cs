@@ -15,7 +15,10 @@ public class PhoneScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _gameScript.getPhone();
-        Destroy(this.transform.parent.gameObject);
+        if (other.CompareTag("PlayerHit"))
+        {
+            _gameScript.getPhone();
+            Destroy(this.transform.parent.gameObject);
+        }
     }
 }

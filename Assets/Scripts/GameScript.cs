@@ -14,6 +14,7 @@ public class GameScript : MonoBehaviour
     private Environment _environment;
 
     public bool isLive = false;
+    public int status = 1;
     
     void Start()
     {
@@ -38,12 +39,14 @@ public class GameScript : MonoBehaviour
     }
     public void Run()
     {
+        status = 1;
         _animator.startRunning();
         _environment.SetSpeed(1.5f);//22s
     }
 
     public void Walk()
     {
+        status = 0;
         _animator.startWalking();
         _environment.SetSpeed(0.45f);
     }

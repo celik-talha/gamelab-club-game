@@ -18,8 +18,15 @@ public class StandScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("a");
-        _gameScript.Hit();
-        Destroy(_parent);
+        if (other.CompareTag("PlayerHit"))
+        {
+            _gameScript.Hit();
+            foreach (MeshRenderer meshRenderer in _parent.transform.GetComponentsInChildren<MeshRenderer>())
+            {
+                meshRenderer.enabled = false;
+            }
+
+            Destroy(_parent.transform.Find("Idle_2").gameObject);
+        }
     }
 }
