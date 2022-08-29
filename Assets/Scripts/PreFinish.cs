@@ -13,6 +13,9 @@ public class PreFinish : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _gameScript.preFinish();
+        if (other.CompareTag("PlayerHit"))
+        {
+            _gameScript.preFinish();
+        }
     }
 }

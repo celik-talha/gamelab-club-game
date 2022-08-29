@@ -40,7 +40,7 @@ public class InputController : MonoBehaviour
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Moved && _letMove)
             {
-                if (firstTouch.position.x > _firstPos.x + 350f && _way != 3)
+                if (firstTouch.position.x > _firstPos.x + 200f && _way != 3)
                 {
                     _onAnimation = true;
                     _moveRight = true;
@@ -49,7 +49,7 @@ public class InputController : MonoBehaviour
                     _way++;
                 }
                 
-                else if (firstTouch.position.x < _firstPos.x - 350f && _way != 1)
+                else if (firstTouch.position.x < _firstPos.x - 200f && _way != 1)
                 {
                     _onAnimation = true;
                     _moveLeft = true;

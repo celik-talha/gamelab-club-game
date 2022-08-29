@@ -20,9 +20,12 @@ public class SpawnManager : MonoBehaviour
     private GameScript _gameScript;
     private int _status = 1;
 
-    private Vector3 _tempPos;
-
     private float _timer = 0f;
+
+    private int _lastPos1;
+    private int _lastPos2;
+
+    public bool letSpawn = true;
     
     void Start()
     {
@@ -31,6 +34,8 @@ public class SpawnManager : MonoBehaviour
         _pos[2] = refObject2.transform.position;
 
         _gameScript = managerObject.GetComponent<GameScript>();
+        
+        Random.seed = System.DateTime.Now.Millisecond;
     }
 
     private void FixedUpdate()
@@ -40,13 +45,12 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnStand()
     {
-        Debug.Log(_timer);
-        if (_timer > 0.4f)
+        if (_timer > 0.4f && letSpawn)
         {
             _timer = 0f;
             _randomNumber = Random.Range(0, 3);
             _chance = Random.Range(1, 3);
-        
+            
             SpawnAt(_randomNumber);
         
             if (_randomNumber == 0)
@@ -54,7 +58,14 @@ public class SpawnManager : MonoBehaviour
                 if (_chance == 1)
                 {
                     _second = Random.Range(1, 3);
-                    SpawnAt(_second);
+                    if (_second == 1 && ( (_lastPos1 != 1 || _lastPos2 != 2) ^ (_lastPos1 != 2 || _lastPos2 !=1) ))
+                    {
+                        SpawnAt(_second);
+                    }
+                    else if (_second == 2)
+                    {
+                        SpawnAt(_second);
+                    }
                 }
             }
             else if (_randomNumber == 1)
@@ -62,11 +73,15 @@ public class SpawnManager : MonoBehaviour
                 if (_chance == 1)
                 {
                     _second = Random.Range(0, 2);
-                    if (_second == 1)
+                    if (_second == 1 && ( (_lastPos1 != 0 || _lastPos2 != 1) ^ (_lastPos1 != 1 || _lastPos2 !=0) ))
                     {
                         _second++;
+                        SpawnAt(_second);
                     }
-                    SpawnAt(_second);
+                    else if (( (_lastPos1 != 1 || _lastPos2 != 2) ^ (_lastPos1 != 2 || _lastPos2 !=1) ))
+                    {
+                        SpawnAt(_second);
+                    }
                 }
             }
             else
@@ -74,8 +89,25 @@ public class SpawnManager : MonoBehaviour
                 if (_chance == 1)
                 {
                     _second = Random.Range(0, 2);
-                    SpawnAt(_second);
+                    if (_second == 1 && ( (_lastPos1 != 0 || _lastPos2 != 1) ^ (_lastPos1 != 1 || _lastPos2 !=0) ))
+                    {
+                        SpawnAt(_second);
+                    }
+                    else if (_second == 0)
+                    {
+                        SpawnAt(_second);
+                    }
                 }
+            }
+
+            _lastPos1 = _randomNumber;
+            if (_chance == 0)
+            {
+                _lastPos2 = -1;
+            }
+            else
+            {
+                _lastPos2 = _second;
             }
         }
     }
@@ -85,16 +117,7 @@ public class SpawnManager : MonoBehaviour
         _stand = Random.Range(0, 6);
         _status = _gameScript.status;
         
-        if (_status == 0)
-        {
-            _tempPos = _pos[no];
-            _tempPos.z = _tempPos.z + 10.0f;
-            _temp = Instantiate(stands[_stand],_tempPos,refObject0.transform.rotation);
-        }
-        else
-        {
-            _temp = Instantiate(stands[_stand],_pos[no],refObject0.transform.rotation);
-        }
+        _temp = Instantiate(stands[_stand],_pos[no],refObject0.transform.rotation);
         _temp.transform.SetParent(standsParent.transform);
     }
 
@@ -102,7 +125,7 @@ public class SpawnManager : MonoBehaviour
     {
         if (other.CompareTag("Stand"))
         {
-            Destroy(other.transform.parent.gameObject);
+            //Destroy(other.transform.parent.gameObject);
             SpawnStand();
         }
     }

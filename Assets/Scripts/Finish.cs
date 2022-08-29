@@ -12,6 +12,9 @@ public class Finish : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        _gameScript.Finish();
+        if (other.CompareTag("PlayerHit"))
+        {
+            _gameScript.Finish();
+        }
     }
 }

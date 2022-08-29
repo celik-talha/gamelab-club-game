@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: d4ac0a9dabc284959ab0d53280dfd24a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Xero's Karma
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 1ceeb706579f24e479e42c949b908f36, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
