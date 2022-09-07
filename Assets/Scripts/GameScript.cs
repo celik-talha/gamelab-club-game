@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameScript : MonoBehaviour
 {
@@ -27,11 +29,24 @@ public class GameScript : MonoBehaviour
     private bool _started = false;
 
     private int _score;
-    
-    
-    
+
+    private GameObject _currentTimer;
+
+    [SerializeField] private GameObject objectUi;
+    private Vector3 _uiPos;
+    [SerializeField] private GameObject timerPrefab;
+
+    [SerializeField] private GameObject gamePanel;
+
+    private float _time;
+    private float _hitTime;
+    private bool hitStatus = false;
+
+    private bool _phoneActive = false;
+
     void Start()
     {
+        _uiPos = objectUi.transform.position;
         _animator = player.GetComponent<AnimatorScript>();
         _input = player.GetComponent<InputController>();
         _environment = environment.GetComponent<Environment>();
@@ -52,6 +67,14 @@ public class GameScript : MonoBehaviour
         {
             _started = true;
             startPanel.SetActive(false);
+        }
+
+        _time += Time.deltaTime * 1;
+
+        if (hitStatus && _time > _hitTime + 5f)
+        {
+            Run();
+            hitStatus = false;
         }
     }
 
@@ -84,12 +107,17 @@ public class GameScript : MonoBehaviour
 
     public void Hit()
     {
-        Walk();
+        if (_phoneActive == false)
+        {
+            Walk();
+            hitStatus = true;
+            _hitTime = _time;
+        }
     }
 
     public void getPhone()
     {
-        
+        createTimer();
     }
 
     public void preFinish()
@@ -105,5 +133,21 @@ public class GameScript : MonoBehaviour
     public void stopSpawn()
     {
         _spawnManager.letSpawn = false;
+    }
+
+    public void timerEnd(GameObject _object)
+    {
+        Destroy(_object);
+        _currentTimer = null;
+
+        _phoneActive = false;
+    }
+
+    public void createTimer()
+    {
+        _currentTimer = Instantiate(timerPrefab, _uiPos, Quaternion.identity);
+        _currentTimer.transform.SetParent(gamePanel.transform);
+
+        _phoneActive = true;
     }
 }
