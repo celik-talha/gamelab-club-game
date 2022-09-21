@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
 
 public class InputController : MonoBehaviour
 {
@@ -18,6 +21,7 @@ public class InputController : MonoBehaviour
     [SerializeField] private GameObject _GameController;
     private GameScript _gameScript;
 
+    private bool _started = false;
     void Start()
     {
         _playerRb = gameObject.GetComponent<Rigidbody>();
@@ -68,13 +72,15 @@ public class InputController : MonoBehaviour
             
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && _started == false && _gameScript._time > 0.1f)
         {
-            _gameScript.StartGame();
-        }
-        else if(Input.GetButtonDown("Jump"))
-        {
-            _gameScript.Walk();
+            Touch _touch = Input.GetTouch(0);
+            if (_touch.position.y > Screen.height/7f)
+            {
+                _gameScript.StartGame();
+                _started = true;
+            }
+            
         }
         
     }
@@ -84,11 +90,11 @@ public class InputController : MonoBehaviour
         if (_moveRight)
         {
             Vector3 thisPos = _playerTransform.position;
-            thisPos.x = thisPos.x + 0.4f;
+            thisPos.x = thisPos.x + 0.8f;
             _playerTransform.position = thisPos;
             _slideCount++;
             
-            if (_slideCount > 15)
+            if (_slideCount > 7)
             {
                 _moveRight = false;
                 _slideCount = 0;
@@ -98,11 +104,11 @@ public class InputController : MonoBehaviour
         else if (_moveLeft)
         {
             Vector3 thisPos = _playerTransform.transform.position;
-            thisPos.x = thisPos.x - 0.4f;
+            thisPos.x = thisPos.x - 0.8f;
             _playerTransform.position = thisPos;
             _slideCount++;
             
-            if (_slideCount > 15)
+            if (_slideCount > 7)
             {
                 _moveLeft = false;
                 _slideCount = 0;

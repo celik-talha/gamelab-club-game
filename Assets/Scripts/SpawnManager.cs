@@ -22,9 +22,6 @@ public class SpawnManager : MonoBehaviour
 
     private float _timer = 0f;
 
-    private int _lastPos1;
-    private int _lastPos2;
-
     public bool letSpawn = true;
     
     void Start()
@@ -49,7 +46,7 @@ public class SpawnManager : MonoBehaviour
         {
             _timer = 0f;
             _randomNumber = Random.Range(0, 3);
-            _chance = Random.Range(1, 3);
+            _chance = Random.Range(0, 2);
             
             SpawnAt(_randomNumber);
         
@@ -58,14 +55,7 @@ public class SpawnManager : MonoBehaviour
                 if (_chance == 1)
                 {
                     _second = Random.Range(1, 3);
-                    if (_second == 1 && ( (_lastPos1 != 1 || _lastPos2 != 2) ^ (_lastPos1 != 2 || _lastPos2 !=1) ))
-                    {
-                        SpawnAt(_second);
-                    }
-                    else if (_second == 2)
-                    {
-                        SpawnAt(_second);
-                    }
+                    SpawnAt(_second);
                 }
             }
             else if (_randomNumber == 1)
@@ -73,15 +63,11 @@ public class SpawnManager : MonoBehaviour
                 if (_chance == 1)
                 {
                     _second = Random.Range(0, 2);
-                    if (_second == 1 && ( (_lastPos1 != 0 || _lastPos2 != 1) ^ (_lastPos1 != 1 || _lastPos2 !=0) ))
+                    if (_second == 1)
                     {
                         _second++;
-                        SpawnAt(_second);
                     }
-                    else if (( (_lastPos1 != 1 || _lastPos2 != 2) ^ (_lastPos1 != 2 || _lastPos2 !=1) ))
-                    {
-                        SpawnAt(_second);
-                    }
+                    SpawnAt(_second);
                 }
             }
             else
@@ -89,25 +75,8 @@ public class SpawnManager : MonoBehaviour
                 if (_chance == 1)
                 {
                     _second = Random.Range(0, 2);
-                    if (_second == 1 && ( (_lastPos1 != 0 || _lastPos2 != 1) ^ (_lastPos1 != 1 || _lastPos2 !=0) ))
-                    {
-                        SpawnAt(_second);
-                    }
-                    else if (_second == 0)
-                    {
-                        SpawnAt(_second);
-                    }
+                    SpawnAt(_second);
                 }
-            }
-
-            _lastPos1 = _randomNumber;
-            if (_chance == 0)
-            {
-                _lastPos2 = -1;
-            }
-            else
-            {
-                _lastPos2 = _second;
             }
         }
     }

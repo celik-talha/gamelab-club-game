@@ -186,7 +186,7 @@ public class Timer : MonoBehaviour
         which sets the time remaining to 0. This is accurate up to 20 milliseconds or 0.02 of a second.*/  
         if (timeRemaining > 0.02)
         {
-            timeRemaining -= (Time.deltaTime)/2.0f;
+            timeRemaining -= (Time.deltaTime);
             DisplayInTextObject();
         }
         else
